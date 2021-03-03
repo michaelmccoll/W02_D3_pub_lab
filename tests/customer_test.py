@@ -11,3 +11,7 @@ class TestCustomer(unittest.TestCase):
 
     def test_customer_has_money(self):
         self.assertEqual(100.0, self.customer.wallet)
+
+    def test_reduce_wallet(self):
+        self.customer.reduce_wallet(10)
+        self.assertEqual(90.00, self.customer.wallet)
