@@ -4,6 +4,10 @@ class Pub:
         self.till = till
         self.drinks = drinks
         self.food = food
+        self.stock = {
+            "drinks": drinks,
+            "food": food
+            } 
 
     def till_transaction(self, amount):
         self.till += amount
@@ -54,3 +58,13 @@ class Pub:
         customer.reduce_wallet(food.price)
         customer.customer_drunkeness(food.alcohol_level)
         self.till_transaction(food.price)
+
+    def check_stock_value(self):
+        #item = self.pub.stock["drinks"][1]
+        total = 0
+        for drink in self.stock["drinks"]:
+            total += drink.price * drink.stock
+        for food in self.stock["food"]:
+            total += food.price * food.stock
+
+        return total

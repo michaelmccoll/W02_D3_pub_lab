@@ -7,10 +7,10 @@ from src.food import Food
 
 class TestPub(unittest.TestCase):
     def setUp(self):
-        self.drink1 = Drink("Bramble", 6.0, 2)
-        self.drink2 = Drink("Long Vodka", 5.89, 3)
-        self.food1 = Food("Burger", 12, -4)
-        self.food2 = Food("Pizza", 8.99, -6)
+        self.drink1 = Drink("Bramble", 5, 2, 20)
+        self.drink2 = Drink("Long Vodka", 10, 3, 10)
+        self.food1 = Food("Burger", 20, -4, 10)
+        self.food2 = Food("Pizza", 10, -6, 30)
 
         drinks = [self.drink1, self.drink2]
         food = [self.food1, self.food2]
@@ -31,14 +31,14 @@ class TestPub(unittest.TestCase):
         self.assertEqual("Long Vodka", find_drink.name)
     
     def test_get_drink_price(self):
-        find_drink_price = self.pub.find_drink_by_price(6.0)
+        find_drink_price = self.pub.find_drink_by_price(5)
         self.assertEqual("Bramble", find_drink_price.name)
 
     def test_sell_drink_to_customer(self):
         customer = Customer("Bob", 100.00, 25, 5)
         self.pub.sell_drink(customer, "Bramble")
-        self.assertEqual(1506.00, self.pub.till)
-        self.assertEqual(94.00, customer.wallet)
+        self.assertEqual(1505.00, self.pub.till)
+        self.assertEqual(95.00, customer.wallet)
 
     def test_sell_drink_to_customer_drink_not(self):
         customer = Customer("Bob", 100.00, 25)
@@ -68,3 +68,9 @@ class TestPub(unittest.TestCase):
         customer = Customer("Bob", 100.00, 25, 10)
         self.pub.sell_food(customer, "Pizza")
         self.assertEqual(4, customer.drunkeness)
+
+    def test_access_dict(self):
+        item = self.pub.stock["drinks"][1]
+    
+    def test_stock_value(self):
+        self.assertEqual(700, self.pub.check_stock_value())
