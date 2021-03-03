@@ -18,3 +18,14 @@ class Pub:
             if drink.price == price:
                 return drink
         return None
+    
+    def sell_drink(self, customer, drink_name):
+        drink = self.find_drink_by_name(drink_name)
+        if not drink:
+            return
+
+        if customer.wallet < drink.price:
+            return
+        
+        customer.reduce_wallet(drink.price)
+        self.till_transaction(drink.price)

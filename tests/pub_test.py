@@ -2,6 +2,7 @@ import unittest
 
 from src.pub import Pub
 from src.drink import Drink
+from src.customer import Customer
 
 class TestPub(unittest.TestCase):
     def setUp(self):
@@ -28,3 +29,21 @@ class TestPub(unittest.TestCase):
     def test_get_drink_price(self):
         find_drink_price = self.pub.find_drink_by_price(6.0)
         self.assertEqual("Bramble", find_drink_price.name)
+
+    def test_sell_drink_to_customer(self):
+        customer = Customer("Bob", 100.00)
+        self.pub.sell_drink(customer, "Bramble")
+        self.assertEqual(1506.00, self.pub.till)
+        self.assertEqual(94.00, customer.wallet)
+
+    def test_sell_drink_to_customer_drink_not(self):
+        customer = Customer("Bob", 100.00)
+        self.pub.sell_drink(customer, "Beer")
+        self.assertEqual(1500.00, self.pub.till)
+        self.assertEqual(100.00, customer.wallet)
+
+    def test_sell_drink_to_customer_drink_found_no_funds(self):
+        customer = Customer("Bob", 3.00)
+        self.pub.sell_drink(customer, "Bramble")
+        self.assertEqual(1500.00, self.pub.till)
+        self.assertEqual(3.00, customer.wallet)
