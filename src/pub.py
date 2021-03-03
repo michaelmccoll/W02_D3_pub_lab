@@ -20,6 +20,12 @@ class Pub:
         return None
     
     def sell_drink(self, customer, drink_name):
+        if customer.age < 18:
+            return
+        
+        if customer.drunkeness > 10:
+            return
+
         drink = self.find_drink_by_name(drink_name)
         if not drink:
             return
