@@ -3,14 +3,18 @@ import unittest
 from src.pub import Pub
 from src.drink import Drink
 from src.customer import Customer
+from src.food import Food
 
 class TestPub(unittest.TestCase):
     def setUp(self):
         self.drink1 = Drink("Bramble", 6.0, 2)
         self.drink2 = Drink("Long Vodka", 5.89, 3)
+        self.food1 = Food("Burger", 12, -4)
+        self.food2 = Food("Pizza", 8.99, -6)
 
         drinks = [self.drink1, self.drink2]
-        self.pub = Pub("The Vaccine Arms", 1500.00, drinks)
+        food = [self.food1, self.food2]
+        self.pub = Pub("The Vaccine Arms", 1500.00, drinks, food)
 
     def test_pub_name(self):
         self.assertEqual("The Vaccine Arms", self.pub.name)
@@ -59,3 +63,8 @@ class TestPub(unittest.TestCase):
         self.pub.sell_drink(customer, "Bramble")
         self.assertEqual(1500.00, self.pub.till)
         self.assertEqual(100.00, customer.wallet)
+
+    def test_sell_food_to_customer_decrease_drunkeness(self):
+        customer = Customer("Bob", 100.00, 25, 10)
+        self.pub.sell_food(customer, "Pizza")
+        self.assertEqual(4, customer.drunkeness)

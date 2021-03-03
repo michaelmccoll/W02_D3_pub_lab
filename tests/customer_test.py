@@ -18,3 +18,7 @@ class TestCustomer(unittest.TestCase):
 
     def test_customer_drunkeness(self):
         self.assertEqual(3, self.customer.drunkeness)
+    
+    def test_customer_increase_drunkness(self):
+        self.customer.customer_drunkeness(10)
+        self.assertEqual(13, self.customer.drunkeness)

@@ -8,5 +8,5 @@ class Customer:
     def reduce_wallet(self, amount):
         self.wallet -= amount
 
-    def customer_drunkeness(self,amount):
+    def customer_drunkeness(self, amount):
         self.drunkeness += amount
